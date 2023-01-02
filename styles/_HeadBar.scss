@@ -1,0 +1,152 @@
+
+
+header {
+    width: 1200px;
+    height: 60px;
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: (translateX(-50%));
+    filter: drop-shadow(0px 1px 6px #000);
+    z-index: 10;
+    
+    
+    .innerBar {
+        position: absolute;
+        top: 0px;
+        left: 3px;
+        z-index: 4;
+        width:1194px;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-variant: small-caps;
+        font-size: 20px;
+        background: linear-gradient(-45deg, $sea_green_1, $blue_3, $blue_4);
+        //background-size: 400% 400%;
+        //animation: gradientBG 15s ease infinite;
+
+        video {
+            //display: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 1;
+
+            /* -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+
+            -moz-transition: all 1s;
+            -webkit-transition: all 1s;
+            -o-transition: all 1s;
+            transition: all 1s ; */
+        }
+
+        span {
+            z-index: 4;
+            position: relative;
+            font-size: 27px;
+            color: white;
+            &.tshadow {
+                text-shadow: 2px 2px 2px #000000;
+            }
+        }
+    }
+    .top_bar {
+        background: white;
+        width: 1200px;
+        height: 60px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        z-index: 3;
+        display: none;
+    }
+}
+
+
+
+.top-clip {
+    clip-path: polygon(0% 0%, 5% 100%, 95% 100%, 100% 0%);
+}
+
+
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.alignment {
+    position: absolute;
+    z-index: 10;
+    top: 57px;
+    left: 63px;
+    width: 1074px;
+    border-bottom: solid #66240d 2px;
+
+    .evil {
+        position: absolute;
+        left: -90px;
+        top: -27px;
+    };
+    .good {
+        position: absolute;
+        right: -90px;
+        top: -27px;
+    }
+    .skullmeter {
+        position: absolute;
+        left: 50%;
+        top: -19px;
+        margin-left: -50px; /* 101 pixels wide */
+        transition-property: transform;
+        transition-timing-function: ease-in-out;
+        transition-duration: 2s;
+        transform: translateX(0px);
+    }
+
+}
+
+
+/*
+#fa9a37
+#c04f1f
+*/
+
+.seperator {
+
+    position: absolute;
+    z-index: 10;
+    top: 47px;
+    left: 10px;
+    width: 1200px;
+
+    img {
+        position: absolute;
+        display: block;
+        top: -14px;
+        left: 50%;
+        margin-left: -24px;
+    }
+
+    hr.mid {
+        width: 100%;
+        border: 0;
+        height: 3px;
+        background-image: linear-gradient(to right, rgba($gold_1, 0), rgba($gold_1, 0.75), rgba($gold_1, 0));
+    }
+
+}
+
+
