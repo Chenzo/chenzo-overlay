@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Chenzo's Overlay</title>
+        <title>Chenzo&apos;s Overlay</title>
       </Head>
       <main>
           <Header/>
