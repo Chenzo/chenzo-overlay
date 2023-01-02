@@ -1,0 +1,62 @@
+@import '/styles/_variables';
+
+.avContainer{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    bottom: -20px;
+    right: -50px;
+    z-index: 4;
+
+    .streamName {
+        padding: 6px 40px;
+        position: absolute;
+        font-size: 20px;
+        z-index: 12;
+        left: 50%;
+        top: 65%;
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+        text-shadow: 2px 2px 2px #000000;
+        color: white;
+
+        div {
+            font-variant: small-caps;
+            span {
+                padding-left: 3px;
+            }
+        }
+    }
+}
+
+.HeadShot {
+
+    .imageContainer {
+        width: 200px;
+        height: 200px;
+        z-index: 4;
+        border: 4px solid $blue_3;
+        img.mrChenzo {
+            width: 110%
+        }
+
+        video {
+            position: absolute;
+        }
+    }
+
+
+}
+
+.circleContainer {
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
