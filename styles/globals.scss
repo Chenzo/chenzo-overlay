@@ -1,0 +1,25 @@
+@import '_variables';
+
+
+body {
+    background-color: rgba(0,0,0,0);
+    margin: 0px auto;
+    overflow: hidden;
+    width: 1920px;
+    max-height: 1080px;
+}
+
+
+.countdown {
+    position: absolute;
+    color: white;
+    font-size: 9px;
+    bottom: 3px;
+    right: 3px;
+    z-index: 12;
+}
+
+
+#numoutput {
+    display: none;
+}

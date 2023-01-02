@@ -1,0 +1,192 @@
+
+footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+    height: 40px;
+    z-index: 7;
+
+    background-image: url('../images/goldpaper.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+
+    &:before {
+        content: "";
+        background: url('../images/divider.svg') repeat-x 50% 50%/auto 100%;
+        position: absolute;
+        top: -5px;
+        width: 100vw;
+        height: 15px;
+    }
+
+    .latest {
+        padding: 7px 0 0 20px;
+        color: white;
+        font-variant: small-caps;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px #000000;
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 2s;
+
+        .followers {
+            display: inline;
+            size: 0.9em;
+            color: $gold_1;
+
+            span {
+                margin: 0 0 0 10px;
+            }
+        }
+
+        &.hiding {
+            opacity: 0;
+        }
+    }
+
+
+    .tchat {
+        position: absolute;
+        //right: 0px;
+        bottom: 0px;
+        width: 100vw;
+        color: white;
+        font-variant: small-caps;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px #000000;
+
+        .aphrase {
+            left: calc(0px + 100%);
+            //right: 0px;
+            transition-property: left;
+            transition-duration: 20s;
+            transition-timing-function: linear;
+            position: absolute;
+            display: inline-block;
+            bottom: 0px;
+            white-space: nowrap;
+
+            .usr {
+                color: $gold_1;
+            }
+
+            &.scrolling {
+                //right: calc(1920px + 100%);
+                left: calc(0px - 100%);
+            }
+        }
+    }
+}
+
+
+
+.sunks {
+    position: absolute;
+    bottom: 26px;
+    right: 10px;
+    z-index: 5;
+
+    .ship-sinker {
+        position: relative;
+        display: inline-block;
+        bottom: 0px;
+        .aship {
+            position: relative;
+            display: inline-block;
+            transform-origin: 140px;
+            //bottom: 0px;
+            //transition: bottom 2s;
+            animation-play-state: running;
+            margin: 0 8px;
+            img {
+                width: 150px;
+            }
+
+            &.brig {
+                img {
+                    width: 120px;
+                }
+            }
+
+            &.sloop {
+                img {
+                    width: 100px;
+                }
+            }
+
+        }
+    }
+}
+
+.float {
+    -webkit-animation:        rock-boat 5s ease-in-out infinite;
+    -moz-animation:    rock-boat 5s ease-in-out infinite;
+    -o-animation:      rock-boat 5s ease-in-out infinite;
+}
+
+
+.sink {
+    -webkit-animation:        sink-boat 20s ease-in-out infinite;
+    -moz-animation:    sink-boat 20s ease-in-out infinite;
+    -o-animation:      sink-boat 20s ease-in-out infinite;
+}
+
+
+@-webkit-keyframes rock-boat {
+  
+    /*The 0% and 100% declarations are not necessary here because they are the same as the original value that the elements hold within the webpage */
+   /*  0%   {-webkit-transform: rotate(3deg) ;
+          -moz-transform:    rotate(3deg) ;
+          -ms-transform:     rotate(3deg) ;
+          -o-transform:      rotate(3deg) ;
+          transform:         rotate(3deg) ;}
+    50%  {-webkit-transform: rotate(-5deg) ;
+          -moz-transform:    rotate(-5deg) ;
+          -ms-transform:     rotate(-5deg) ;
+          -o-transform:      rotate(-5deg) ;
+          transform:         rotate(-5deg) ;}
+    100% {-webkit-transform: rotate(3deg) ;
+        -moz-transform:    rotate(3deg) ;
+        -ms-transform:     rotate(3deg) ;
+        -o-transform:      rotate(3deg) ;
+        transform:         rotate(3deg) ;}  */
+
+   0%   {-webkit-transform: rotate(5deg) translateY(4px);
+          -moz-transform:    rotate(5deg) translateY(4px);
+          -ms-transform:     rotate(5deg) translateY(4px);
+          -o-transform:      rotate(5deg) translateY(4px);
+          transform:         rotate(5deg) translateY(4px);}
+    50%  {-webkit-transform: rotate(-5deg) translateY(-15px);
+          -moz-transform:    rotate(-5deg) translateY(-15px);
+          -ms-transform:     rotate(-5deg) translateY(-15px);
+          -o-transform:      rotate(-5deg) translateY(-15px);
+          transform:         rotate(-5deg) translateY(-15px);}
+    100% {-webkit-transform: rotate(5deg) translateY(4px);
+        -moz-transform:    rotate(5deg) translateY(4px);
+        -ms-transform:     rotate(5deg) translateY(4px);
+        -o-transform:      rotate(5deg) translateY(4px);
+        transform:         rotate(5deg) translateY(4px);} 
+}
+
+
+
+@-webkit-keyframes sink-boat {
+    0% {bottom: -100px; transform: rotate(-60deg)}
+    5% {bottom: 0px; transform: rotate(0deg)}
+    75%   {bottom: 0px; transform: rotate(0deg)}
+    85%   {bottom: 0px; transform: rotate(0deg)}
+    95%   {bottom: -20px; transform: rotate(25deg)}
+  100% {bottom: -100px; transform: rotate(60deg)}
+
+}
+ 
+/* @-webkit-keyframes sink-boat {
+    0%   {bottom: 0px; transform: rotate(0deg)}
+    75%   {bottom: 0px; transform: rotate(0deg)}
+  85% {bottom: -100px; transform: rotate(-20deg)}
+  95% {bottom: -100px; transform: rotate(-20deg)}
+  100% {bottom: 0px; transform: rotate(0deg)}
+} */

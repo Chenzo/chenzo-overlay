@@ -1,0 +1,38 @@
+
+.crew {
+    position: absolute;
+    z-index: 1;
+    bottom: -100px;
+    left: 55px;
+
+    .crewmate {
+        position: absolute;
+        bottom: 0px;
+
+        display: none;
+
+        &.active {
+            display: block;
+        }
+        
+        img {
+            height: 250px;
+            width: auto;
+        }
+
+        &.peoples {
+            z-index: 5;
+        }
+
+        &.binobo {
+            left: -80px;
+            z-index: 3;
+        }
+
+        &.hero {
+            left: 90px;
+        }
+    }
+}
+
+
