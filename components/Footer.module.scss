@@ -1,0 +1,52 @@
+@import '/styles/_variables';
+
+
+
+.chenzo_footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100vw;
+    height: 40px;
+    z-index: 7;
+
+    background-image: url('/images/goldpaper.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+
+    &:before {
+        content: "";
+        background: url('/images/divider.svg') repeat-x 50% 50%/auto 100%;
+        position: absolute;
+        top: -5px;
+        width: 100vw;
+        height: 15px;
+    }
+
+
+    .latest {
+        padding: 7px 0 0 20px;
+        color: white;
+        font-variant: small-caps;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px #000000;
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 2s;
+
+        .followers {
+            display: inline;
+            size: 0.9em;
+            color: $gold_1;
+
+            span {
+                margin: 0 0 0 10px;
+            }
+        }
+
+        &.hiding {
+            opacity: 0;
+        }
+    }
+}
