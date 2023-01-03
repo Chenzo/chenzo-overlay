@@ -8,7 +8,7 @@ export default function Footer({twitchAccessToken}) {
         <footer className={styles.chenzo_footer}>
             <LatestFollowers twitchAccessToken={twitchAccessToken}/>
             <div id="chatSpace" className="tchat windlass">
-                <div id="phrase" className="aphrase"><span class="usr">Chenzo</span>: <span className="msg">HAhahaha this is just me saying stuff</span></div>
+                <div id="phrase" className="aphrase"><span className="usr">Chenzo</span>: <span className="msg">HAhahaha this is just me saying stuff</span></div>
             </div>
         </footer>
     )

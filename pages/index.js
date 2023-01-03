@@ -6,10 +6,12 @@ import { io } from 'socket.io-client'
 import Header from 'components/Header'
 import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
+import AudioObject from 'components/AudioObject';
 
 export default function Home({twitchAccessToken, socketServer}) {
 
   let socket;
+  const [currentAudio, setCurrentAudio] = useState(""); 
 
   const socket_user_name = 'thbar_obs';
   //const socket_room = 'panel_remote';
@@ -34,7 +36,7 @@ const onToAuxEvent = function(evtData) {
   console.log(evtData);
 
   if (evtData.event == "playaudio") {
-      //displayOBJ.playAudio(evtData.target);
+      setCurrentAudio(evtData.target);
   }
 
   if (evtData.event == "addcrew") {
@@ -81,6 +83,7 @@ const onToAuxEvent = function(evtData) {
 
       </main>
         <Footer twitchAccessToken={twitchAccessToken}/>
+        <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
     </>
   )
 }
