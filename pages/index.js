@@ -7,11 +7,13 @@ import Header from 'components/Header'
 import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
 import AudioObject from 'components/AudioObject';
+import Sunks from 'components/Sunks';
 
 export default function Home({twitchAccessToken, socketServer}) {
 
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
+  const [sunkShipArray, setSunkShipArray] = useState([]);
 
   const socket_user_name = 'thbar_obs';
   //const socket_room = 'panel_remote';
@@ -59,11 +61,39 @@ const onToAuxEvent = function(evtData) {
   }
 }
 
+
+const onAnEvent = function(theEventDat) {
+  console.log("received event!!");
+  console.log(theEventDat);
+
+  if (theEventDat.event == "shipsunk" || theEventDat.event == "shipresunk" 
+  || theEventDat.event == "shipsunk-flag" || theEventDat.event == "shipresunk-flag"
+  || theEventDat.event == "factionshipsunk" || theEventDat.event == "factionshipsunk-flag") {
+      console.log(theEventDat.ship);
+      let daShip = theEventDat.ship.split("-")[0];
+      console.log(daShip);
+      setSunkShipArray(sunkShipArray => [...sunkShipArray, daShip])
+      
+      
+  }
+/* 
+  if (theEventDat.event == "playaudio") {
+      console.log("I'm here... this should be it?");
+      console.log(theEventDat.ship);
+      displayOBJ.playAudio(theEventDat.ship);
+  }
+
+  if (theEventDat.event == "setAlignment") {
+      displayOBJ.adjustAlignment(theEventDat.ship);
+  } */
+}
+
   const initSocket = () => {
     socket = io(socketServer);
     socket.on('connect_error', handleNoConnect);
     socket.on("connect", onConnect);
     socket.on("toAuxEvent", onToAuxEvent);
+    socket.on("anEvent", onAnEvent);
   }
 
   useEffect(() => {
@@ -82,6 +112,7 @@ const onToAuxEvent = function(evtData) {
           <HeadShot/>
 
       </main>
+        <Sunks sunkShipArray={sunkShipArray}/>
         <Footer twitchAccessToken={twitchAccessToken}/>
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
     </>

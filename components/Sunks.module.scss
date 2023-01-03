@@ -1,0 +1,110 @@
+@import '/styles/_variables';
+
+
+.sunks {
+    position: absolute;
+    bottom: 26px;
+    right: 10px;
+    z-index: 5;
+
+    .ship_sinker {
+        position: relative;
+        display: inline-block;
+        bottom: 0px;
+        .aship {
+            position: relative;
+            display: inline-block;
+            transform-origin: 140px;
+            //bottom: 0px;
+            //transition: bottom 2s;
+            animation-play-state: running;
+            margin: 0 8px;
+            img {
+                width: 150px;
+            }
+
+            &.brig {
+                img {
+                    width: 120px;
+                }
+            }
+
+            &.sloop {
+                img {
+                    width: 100px;
+                }
+            }
+
+        }
+    }
+}
+
+.float {
+    -webkit-animation:        rock-boat 5s ease-in-out infinite;
+    -moz-animation:    rock-boat 5s ease-in-out infinite;
+    -o-animation:      rock-boat 5s ease-in-out infinite;
+}
+
+
+.sink {
+    -webkit-animation:        sink-boat 20s ease-in-out infinite;
+    -moz-animation:    sink-boat 20s ease-in-out infinite;
+    -o-animation:      sink-boat 20s ease-in-out infinite;
+}
+
+
+@keyframes rock-boat {
+  
+    /*The 0% and 100% declarations are not necessary here because they are the same as the original value that the elements hold within the webpage */
+   /*  0%   {-webkit-transform: rotate(3deg) ;
+          -moz-transform:    rotate(3deg) ;
+          -ms-transform:     rotate(3deg) ;
+          -o-transform:      rotate(3deg) ;
+          transform:         rotate(3deg) ;}
+    50%  {-webkit-transform: rotate(-5deg) ;
+          -moz-transform:    rotate(-5deg) ;
+          -ms-transform:     rotate(-5deg) ;
+          -o-transform:      rotate(-5deg) ;
+          transform:         rotate(-5deg) ;}
+    100% {-webkit-transform: rotate(3deg) ;
+        -moz-transform:    rotate(3deg) ;
+        -ms-transform:     rotate(3deg) ;
+        -o-transform:      rotate(3deg) ;
+        transform:         rotate(3deg) ;}  */
+
+   0%   {-webkit-transform: rotate(5deg) translateY(4px);
+          -moz-transform:    rotate(5deg) translateY(4px);
+          -ms-transform:     rotate(5deg) translateY(4px);
+          -o-transform:      rotate(5deg) translateY(4px);
+          transform:         rotate(5deg) translateY(4px);}
+    50%  {-webkit-transform: rotate(-5deg) translateY(-15px);
+          -moz-transform:    rotate(-5deg) translateY(-15px);
+          -ms-transform:     rotate(-5deg) translateY(-15px);
+          -o-transform:      rotate(-5deg) translateY(-15px);
+          transform:         rotate(-5deg) translateY(-15px);}
+    100% {-webkit-transform: rotate(5deg) translateY(4px);
+        -moz-transform:    rotate(5deg) translateY(4px);
+        -ms-transform:     rotate(5deg) translateY(4px);
+        -o-transform:      rotate(5deg) translateY(4px);
+        transform:         rotate(5deg) translateY(4px);} 
+}
+
+
+
+@keyframes sink-boat {
+    0% {bottom: -100px; transform: rotate(-60deg)}
+    5% {bottom: 0px; transform: rotate(0deg)}
+    75%   {bottom: 0px; transform: rotate(0deg)}
+    85%   {bottom: 0px; transform: rotate(0deg)}
+    95%   {bottom: -20px; transform: rotate(25deg)}
+  100% {bottom: -100px; transform: rotate(60deg)}
+
+}
+ 
+/* @-webkit-keyframes sink-boat {
+    0%   {bottom: 0px; transform: rotate(0deg)}
+    75%   {bottom: 0px; transform: rotate(0deg)}
+  85% {bottom: -100px; transform: rotate(-20deg)}
+  95% {bottom: -100px; transform: rotate(-20deg)}
+  100% {bottom: 0px; transform: rotate(0deg)}
+} */
