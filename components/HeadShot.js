@@ -6,7 +6,7 @@ export default function HeadShot() {
     return (
         <div id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`}>
             <div className={`goldBG ${styles.streamName}`}>
-                <div class="windlass">Mr<span>.</span> Chenzo</div>
+                <div className="windlass">Mr<span>.</span> Chenzo</div>
             </div>
             <CircleAudioBars/>
             <div className={`${styles.imageContainer} ${styles.circleContainer}`}>
