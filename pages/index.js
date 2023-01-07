@@ -2,6 +2,10 @@ import Head from 'next/head'
 import { useState, useEffect } from "react";
 //import { Socket } from 'socket.io-client'
 import { io } from 'socket.io-client'
+/* import TwitchJs from 'twitch-js'
+import { Chat, ChatEvents } from 'twitch-js' */
+//import tmi from "tmi.js"
+import { Client } from 'tmi.js';
 
 import Header from 'components/Header'
 import HeadShot from 'components/HeadShot'
@@ -14,6 +18,54 @@ export default function Home({twitchAccessToken, socketServer}) {
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
   const [sunkShipArray, setSunkShipArray] = useState([]);
+  let chatInit = false;
+
+  /* const username = "chenzorama" */
+  /* const twitchJs = new TwitchJs({ username, NEXT_PUBLIC_OAUTH }) */
+
+
+  /* const username = "chenzorama";
+  const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
+  const channel = "chenzorama";
+
+  const chat = new Chat({
+    username,
+    token
+  }); */
+
+  const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
+  const client = new Client({
+    options: { debug: true },
+    identity: {
+      username: 'chenzorama',
+      password: token
+    },
+    channels: [ 'chenzorama' ]
+  })
+
+  const startChat = () => {
+    if (!chatInit) {
+      /* chat.connect();
+      chat.join(channel);
+
+      chat.on(ChatEvents.SUBSCRIPTION, (message) => {
+        // Do stuff with message: UserNoticeSubscriptionMessage
+        console.log("watching chat");
+        console.log(message);
+      }); */
+
+      client.connect().catch(console.error);
+      client.on('message', (channel, tags, message, self) => {
+        if(self) return;
+        if(message.toLowerCase() === '!hello') {
+          client.say(channel, `@${tags.username}, heya!`);
+        }
+      });
+      chatInit = true;
+    }
+  }
+
+  
 
   const socket_user_name = 'thbar_obs';
   //const socket_room = 'panel_remote';
@@ -98,7 +150,8 @@ const onAnEvent = function(theEventDat) {
 
   useEffect(() => {
     console.log("initSocket");
-    initSocket();
+    //initSocket();
+    startChat();
 }, []);
 
   return (
