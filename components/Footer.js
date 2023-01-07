@@ -1,15 +1,14 @@
 import styles from "./Footer.module.scss";
 
 import LatestFollowers from "./LatestFollowers";
+import ChatScroller from "./ChatScroller";
 
 export default function Footer({twitchAccessToken}) {
 
     return (
         <footer className={styles.chenzo_footer}>
             <LatestFollowers twitchAccessToken={twitchAccessToken}/>
-            <div id="chatSpace" className="tchat windlass">
-                <div id="phrase" className="aphrase"><span className="usr">Chenzo</span>: <span className="msg">HAhahaha this is just me saying stuff</span></div>
-            </div>
+            <ChatScroller />
         </footer>
     )
 

@@ -16,8 +16,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "socket.io-client": "^4.5.4",
-    "tmi.js": "^1.8.5",
-    "twitch-js": "^2.0.0-beta.45"
+    "tmi.js": "^1.8.5"
   },
   "devDependencies": {
     "sass": "^1.57.1"

@@ -1,0 +1,39 @@
+@import '/styles/_variables';
+
+    .chatSpace {
+        position: absolute;
+        //right: 0px;
+        bottom: 0px;
+        width: 100vw;
+        color: white;
+        font-variant: small-caps;
+        font-size: 20px;
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 2px #000000;
+
+        .aphrase {
+            //left: calc(0px + 100%);
+            right: 0px;
+            /* transition-property: left;
+            transition-duration: 20s;
+            transition-timing-function: linear; */
+            position: absolute;
+            display: inline-block;
+            bottom: 0px;
+            white-space: nowrap;
+            font-size: 1.4em;
+
+            .usr {
+                color: $gold_1;
+            }
+
+            .colon {
+                margin-right: 10px;
+            }
+
+            /* &.scrolling {
+                //right: calc(1920px + 100%);
+                left: calc(0px - 100%);
+            } */
+        }
+    }
