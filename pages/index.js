@@ -16,14 +16,17 @@ export default function Home({twitchAccessToken, socketServer}) {
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
   const [sunkShipArray, setSunkShipArray] = useState([]);
-  const [alignment, setCurrentAlignment] = useState("0");
+  const [alignment, setCurrentAlignment] = useState("50");
+  const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
   let chatInit = false;
   let socketInit = false;
 
 
   const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
   const client = new Client({
-    options: { debug: true },
+    options: { 
+      debug: false
+    },
     identity: {
       username: 'chenzorama',
       password: token
@@ -40,6 +43,8 @@ export default function Home({twitchAccessToken, socketServer}) {
         if(message.toLowerCase() === '!hello') {
           client.say(channel, `@${tags.username}, heya!`);
         }
+        console.log(tags);
+        setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
       });
       chatInit = true;
     }
@@ -52,8 +57,8 @@ export default function Home({twitchAccessToken, socketServer}) {
   const socket_room = 'teaxc64in';
 
   const handleNoConnect = function(err) {
-    console.log('connection error');
-    console.log(err)
+    console.log('connection error (error commented out)');
+    //console.log(err)
 };
 
   const onConnect = function() {
@@ -153,7 +158,7 @@ const onAnEvent = function(theEventDat) {
 
       </main>
         <Sunks sunkShipArray={sunkShipArray}/>
-        <Footer twitchAccessToken={twitchAccessToken}/>
+        <Footer twitchAccessToken={twitchAccessToken} lastChat={lastChat}/>
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
     </>
   )

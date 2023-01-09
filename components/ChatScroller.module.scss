@@ -10,30 +10,44 @@
         font-size: 20px;
         letter-spacing: 1px;
         text-shadow: 2px 2px 2px #000000;
-
-        .aphrase {
-            //left: calc(0px + 100%);
-            right: 0px;
-            /* transition-property: left;
-            transition-duration: 20s;
-            transition-timing-function: linear; */
-            position: absolute;
-            display: inline-block;
-            bottom: 0px;
-            white-space: nowrap;
-            font-size: 1.4em;
-
-            .usr {
-                color: $gold_1;
-            }
-
-            .colon {
-                margin-right: 10px;
-            }
-
-            /* &.scrolling {
-                //right: calc(1920px + 100%);
-                left: calc(0px - 100%);
-            } */
-        }
     }
+
+    .topSpace {
+        position: relative;
+        /* -webkit-animation:        slideUp 1s ease-out;
+        -moz-animation:    slideUp 1s ease-out;
+        -o-animation:      slideUp 1s ease-out; */
+        /* opacity: 0;
+        transition: opacity .5s;
+
+        &.fadeIn {
+            opacity: 1;
+        } */
+    }
+
+    .bottomSpace {
+        position: relative;
+        left: 0px;
+        transition: left 1s;
+
+        &.fadeOut {
+            left: -100px;
+        }
+        /* &.fadeOut {
+            -webkit-animation:        bottomAway 2s;
+            -moz-animation:    bottomAway 2s;
+            -o-animation:      bottomAway 2s;
+            //-webkit-animation-fill-mode: forwards;
+        } */
+    }
+
+
+@keyframes slideUp {
+    0% {bottom: -30px;}
+    100% {bottom: 0px;}
+}
+
+@keyframes bottomAway {
+    0% {left: 0px;}
+    100% {left: -30px;}
+}
