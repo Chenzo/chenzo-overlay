@@ -6,45 +6,44 @@ export default function ChatPhrase({usr, msg, emotes}) {
 
     const phrase = useRef();
 
-    let message = [msg];
+    //let message = [msg];
+    let messageArray = [msg];
+
+    /*
+    emotes: {
+        "30259": [ //image id
+            "7-13" //start and end in msg string
+        ]
+    }
+    */
 
     if (emotes) {
-        console.log("has emotes");
-        const stringReplacements = [];
+        //const stringReplacements = [];
         
-
+        let stringsToReplace = {};
         Object.entries(emotes).forEach(([id, positions]) => {
-            console.log(`emote id = ${id} at ${positions}`);
+            console.log(`emote id = ${id} at ${positions} - https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0`);
             const position = positions[0];
             const [start, end] = position.split("-");
-            /* let front = message.substring(0, parseInt(start, 10));
-            let back = message.substring(parseInt(end, 10) + 1); */
-
             const stringToReplace = msg.substring(
                 parseInt(start, 10),
                 parseInt(end, 10) + 1
             );
+
+            //Left this in, causes [object OBJECT] in the string
           
-            stringReplacements.push({
+            //let imgHTML = `<img src="https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0" />`
+            /* stringReplacements.push({
                 stringToReplace: stringToReplace,
                 replacement: <img src={`https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0`} />,
-            });
-            /* let src = `https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0`;
-            message = <span>{front}<img src={src} />{back}</span> */
+                //replacement: imgHTML,
+            }); */
+
+
+            stringsToReplace[stringToReplace] = <img src={`https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0`} />
         });     
 
-        message = [];
-        let choppedMessage = msg
-        for (let e=0; e<stringReplacements.length; e++) {
-            let pts = choppedMessage.split(stringReplacements[e].stringToReplace);
-            message.push(pts[0]);
-            message.push(stringReplacements[e].replacement);
-            choppedMessage = pts[1];
-        }
 
-
-        //message = msg.replaceAll(stringReplacements[0].stringToReplace, <span>stringReplacements[0].replacement</span>)
-        
         /* message = stringReplacements.reduce(
             (acc, { stringToReplace, replacement }) => {
                 // obs browser doesn't seam to know about replaceAll
@@ -54,15 +53,22 @@ export default function ChatPhrase({usr, msg, emotes}) {
             msg
         ); */
 
-        //message = <img src="https://static-cdn.jtvnw.net/emoticons/v1/${id}/2.0" />;
-        //https://static-cdn.jtvnw.net/emoticons/v1/64138/1.0 */
+
+        messageArray = msg.split(' ').map(word => {
+            if (stringsToReplace[word]) {
+                return stringsToReplace[word]
+            }
+            return " " + word + " "
+        })
+
     }
 
     return (
         <div ref={phrase} className={`${styles.aphrase}`}>
             <span className={styles.usr}>{usr}</span>
             <span className={styles.colon}>:</span> 
-            <span className={styles.msg}>{message}</span>
+            {/* <span className={styles.msg}>{message}</span> */}
+            <span className={styles.msg}>{messageArray}</span>
         </div> 
     )
 

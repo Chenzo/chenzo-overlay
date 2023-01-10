@@ -43,7 +43,6 @@ export default function Home({twitchAccessToken, socketServer}) {
         if(message.toLowerCase() === '!hello') {
           client.say(channel, `@${tags.username}, heya!`);
         }
-        console.log(tags);
         setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
       });
       chatInit = true;
