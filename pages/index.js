@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 //import { Socket } from 'socket.io-client'
 import { io } from 'socket.io-client'
 
+import { Client } from 'tmi.js';
+
 import Header from 'components/Header'
 import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
@@ -14,14 +16,48 @@ export default function Home({twitchAccessToken, socketServer}) {
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
   const [sunkShipArray, setSunkShipArray] = useState([]);
+  const [alignment, setCurrentAlignment] = useState("50");
+  const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
+  let chatInit = false;
+  let socketInit = false;
+
+
+  const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
+  const client = new Client({
+    options: { 
+      debug: false
+    },
+    identity: {
+      username: 'chenzorama',
+      password: token
+    },
+    channels: [ 'chenzorama' ]
+  })
+
+  const startChat = () => {
+    if (!chatInit) {
+
+      client.connect().catch(console.error);
+      client.on('message', (channel, tags, message, self) => {
+        if(self) return;
+        if(message.toLowerCase() === '!hello') {
+          client.say(channel, `@${tags.username}, heya!`);
+        }
+        setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
+      });
+      chatInit = true;
+    }
+  }
+
+  
 
   const socket_user_name = 'thbar_obs';
   //const socket_room = 'panel_remote';
   const socket_room = 'teaxc64in';
 
   const handleNoConnect = function(err) {
-    console.log('connection error');
-    console.log(err)
+    console.log('connection error (error commented out)');
+    //console.log(err)
 };
 
   const onConnect = function() {
@@ -73,8 +109,12 @@ const onAnEvent = function(theEventDat) {
       let daShip = theEventDat.ship.split("-")[0];
       console.log(daShip);
       setSunkShipArray(sunkShipArray => [...sunkShipArray, daShip])
-      
-      
+    
+  }
+
+  if (theEventDat.event == "setAlignment") {
+    console.log(theEventDat.ship)
+    setCurrentAlignment(theEventDat.ship);
   }
 /* 
   if (theEventDat.event == "playaudio") {
@@ -83,23 +123,27 @@ const onAnEvent = function(theEventDat) {
       displayOBJ.playAudio(theEventDat.ship);
   }
 
-  if (theEventDat.event == "setAlignment") {
-      displayOBJ.adjustAlignment(theEventDat.ship);
-  } */
+   */
 }
 
   const initSocket = () => {
-    socket = io(socketServer);
-    socket.on('connect_error', handleNoConnect);
-    socket.on("connect", onConnect);
-    socket.on("toAuxEvent", onToAuxEvent);
-    socket.on("anEvent", onAnEvent);
+    if (!socketInit) {
+      socket = io(socketServer);
+      socket.on('connect_error', handleNoConnect);
+      socket.on("connect", onConnect);
+      socket.on("toAuxEvent", onToAuxEvent);
+      socket.on("anEvent", onAnEvent);
+      socketInit = true;
+    }
   }
 
   useEffect(() => {
     console.log("initSocket");
     initSocket();
+    startChat();
 }, []);
+
+
 
   return (
     
@@ -107,13 +151,13 @@ const onAnEvent = function(theEventDat) {
       <Head>
         <title>Chenzo&apos;s Overlay</title>
       </Head>
-      <Header/>
+      <Header alignment={alignment}/>
       <main>
           <HeadShot/>
 
       </main>
         <Sunks sunkShipArray={sunkShipArray}/>
-        <Footer twitchAccessToken={twitchAccessToken}/>
+        <Footer twitchAccessToken={twitchAccessToken} lastChat={lastChat}/>
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
     </>
   )

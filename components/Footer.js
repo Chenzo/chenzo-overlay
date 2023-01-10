@@ -1,15 +1,31 @@
 import styles from "./Footer.module.scss";
+import { useState, useEffect } from "react";
 
 import LatestFollowers from "./LatestFollowers";
+import ChatScroller from "./ChatScroller";
 
-export default function Footer({twitchAccessToken}) {
+export default function Footer({twitchAccessToken, lastChat}) {
+
+    const [isHidden, setIsHidden] = useState(false);
+    const [tmr, setTMR] = useState(0);
+
+
+    useEffect(() => {
+        console.log("hide followers for a moment");
+        clearTimeout(tmr);
+        setIsHidden(true);
+        let timer = setTimeout(function() {
+            setIsHidden(false)
+        }, 5000);
+        setTMR(timer);
+    }, [lastChat]);
 
     return (
         <footer className={styles.chenzo_footer}>
-            <LatestFollowers twitchAccessToken={twitchAccessToken}/>
-            <div id="chatSpace" className="tchat windlass">
-                <div id="phrase" className="aphrase"><span className="usr">Chenzo</span>: <span className="msg">HAhahaha this is just me saying stuff</span></div>
+            <div className={`${styles.followers} ${(isHidden) ? styles.hidden : ""}`}>
+                <LatestFollowers twitchAccessToken={twitchAccessToken}/>
             </div>
+            <ChatScroller lastChat={lastChat}/>
         </footer>
     )
 

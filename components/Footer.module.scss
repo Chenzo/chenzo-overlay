@@ -14,6 +14,15 @@
     background-position: 50% 50%;
     background-size: cover;
 
+    .followers {
+        opacity: 1;
+        transition: opacity .5s;
+        
+        &.hidden {
+            opacity: 0;
+        }
+    }
+
     &:before {
         content: "";
         background: url('/images/divider.svg') repeat-x 50% 50%/auto 100%;
