@@ -14,48 +14,8 @@ export default function CircleAudioBars() {
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
-        if (headShotType == 2) {
-
-            let i = 0;
-            let jawi = i + 109
-            let topi = 13;
-            let alf = 0;
-            let soundlimit = 8;
-            var pastNub = 0;
-            var distancelimit = 3;
-
-            var l = dataArray.length;
-            var sum = dataArray.reduce(function(a, b){
-                return a + b;
-            }, 0);
-
-            var nub = ~~(sum / l);
-            document.getElementById("numoutput").innerHTML= nub;
-
-            if (nub > pastNub + distancelimit || nub < pastNub - distancelimit) {
-                pastNub = nub;
-                nub = (nub - soundlimit < 0) ? 0 : nub - soundlimit;
-                jawi = (nub * .4) + 109;
-                topi = 13 - (nub/10);
-                alf = (nub *1.5) * .01;
-            }
-
-            if (nub > 50) {
-                document.getElementById("skull_top_open").classList.remove("hidden");
-                document.getElementById("skull_top").classList.add("open");
-                document.getElementById("skull_top_closed").classList.add("hidden");
-            } else {
-                document.getElementById("skull_top_open").classList.add("hidden");
-                document.getElementById("skull_top").classList.remove("open");
-                document.getElementById("skull_top_closed").classList.remove("hidden");
-            }
-            document.getElementById("skull_top").style.top = topi + "px";
-            document.getElementById("skull_jaw").style.top = jawi + "px";
-            document.getElementById("skull_bg").style.opacity = alf;
-        } else {
-            drawBars(ctx, dataArray);
-            drawBars(ctx2, dataArray);
-        }
+        drawBars(ctx, dataArray);
+        drawBars(ctx2, dataArray);
         rafId = requestAnimationFrame(tick);
         setRafCount(rafId);
         //myThing.innerHTML = "rafId: " + rafId;
@@ -156,6 +116,9 @@ export default function CircleAudioBars() {
         setInitialValues();
         makeAngles();
         getAudio();
+        return function cleanup() {
+            console.log("this should be where we stop it")
+        };
     }, []);
 
 

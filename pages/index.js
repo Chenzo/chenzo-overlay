@@ -18,6 +18,7 @@ export default function Home({twitchAccessToken, socketServer}) {
   const [sunkShipArray, setSunkShipArray] = useState([]);
   const [alignment, setCurrentAlignment] = useState("50");
   const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
+  const [headType, setHeadType] = useState("chenzo");
   let chatInit = false;
   let socketInit = false;
 
@@ -42,6 +43,12 @@ export default function Home({twitchAccessToken, socketServer}) {
         if(self) return;
         if(message.toLowerCase() === '!hello') {
           client.say(channel, `@${tags.username}, heya!`);
+        }
+        if(message.toLowerCase() === '!scooby') {
+          setHeadType('skully');
+        }
+        if(message.toLowerCase() === '!chenzo') {
+          setHeadType('chenzo');
         }
         setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
       });
@@ -153,7 +160,7 @@ const onAnEvent = function(theEventDat) {
       </Head>
       <Header alignment={alignment}/>
       <main>
-          <HeadShot/>
+          <HeadShot headType={headType}/>
 
       </main>
         <Sunks sunkShipArray={sunkShipArray}/>
