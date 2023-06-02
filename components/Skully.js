@@ -10,7 +10,6 @@ export default function Skully() {
     let myThing, fftSize, smoothingTimeConstant;
 
     const [rafCount, setRafCount] = useState("000"); 
-    const [running, setRunning] = useState(false);
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -39,24 +38,24 @@ export default function Skully() {
             alf = (nub *1.5) * .01;
         }
 
-        if (nub > 50) {
-            document.getElementById("skull_top_open").classList.remove("hidden");
-            document.getElementById("skull_top").classList.add("open");
-            document.getElementById("skull_top_closed").classList.add("hidden");
-        } else {
-            document.getElementById("skull_top_open").classList.add("hidden");
-            document.getElementById("skull_top").classList.remove("open");
-            document.getElementById("skull_top_closed").classList.remove("hidden");
-        }
-        document.getElementById("skull_top").style.top = topi + "px";
-        document.getElementById("skull_jaw").style.top = jawi + "px";
-        document.getElementById("skull_bg").style.opacity = alf;
+        if (document.getElementById("skull_top_open")) {
+            if (nub > 50) {
+                document.getElementById("skull_top_open").classList.remove("hidden");
+                document.getElementById("skull_top").classList.add("open");
+                document.getElementById("skull_top_closed").classList.add("hidden");
+            } else {
+                document.getElementById("skull_top_open")?.classList.add("hidden");
+                document.getElementById("skull_top")?.classList.remove("open");
+                document.getElementById("skull_top_closed")?.classList.remove("hidden");
+            }
+            document.getElementById("skull_top").style.top = topi + "px";
+            document.getElementById("skull_jaw").style.top = jawi + "px";
+            document.getElementById("skull_bg").style.opacity = alf;
 
-        if (running) {
             rafId = requestAnimationFrame(tick);
             setRafCount(rafId);
+            //myThing.innerHTML = "rafId: " + rafId;
         }
-        //myThing.innerHTML = "rafId: " + rafId;
     };
 
     const getAudio = () => {
@@ -89,12 +88,10 @@ export default function Skully() {
         console.log("listen to MIC for scullly");
         fftSize = 64;
         smoothingTimeConstant = 0.2;
-        setRunning(true);
         getAudio();
         
         return () => {
             console.log("stop listening to MIC for scullly");
-            setRunning(false);
             cancelAnimationFrame(rafId);
         }
     }, []);
