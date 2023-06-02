@@ -10,6 +10,7 @@ export default function Skully() {
     let myThing, fftSize, smoothingTimeConstant;
 
     const [rafCount, setRafCount] = useState("000"); 
+    const [running, setRunning] = useState(false);
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -51,8 +52,10 @@ export default function Skully() {
         document.getElementById("skull_jaw").style.top = jawi + "px";
         document.getElementById("skull_bg").style.opacity = alf;
 
-        rafId = requestAnimationFrame(tick);
-        setRafCount(rafId);
+        if (running) {
+            rafId = requestAnimationFrame(tick);
+            setRafCount(rafId);
+        }
         //myThing.innerHTML = "rafId: " + rafId;
     };
 
@@ -86,7 +89,14 @@ export default function Skully() {
         console.log("listen to MIC for scullly");
         fftSize = 64;
         smoothingTimeConstant = 0.2;
+        setRunning(true);
         getAudio();
+        
+        return () => {
+            console.log("stop listening to MIC for scullly");
+            setRunning(false);
+            cancelAnimationFrame(rafId);
+        }
     }, []);
 
     return (
