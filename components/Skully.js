@@ -1,5 +1,5 @@
 import styles from "./Skully.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Skully() {
 
@@ -8,8 +8,10 @@ export default function Skully() {
     let audioContext, analyser, dataArray, source, canvas;
     let canvas2, ctx, ctx2, width, height, radius, num_items;
     let myThing, fftSize, smoothingTimeConstant;
+    let running = false;
 
     const [rafCount, setRafCount] = useState("000"); 
+    const requestRef = useRef(null);
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -52,9 +54,12 @@ export default function Skully() {
             document.getElementById("skull_jaw").style.top = jawi + "px";
             document.getElementById("skull_bg").style.opacity = alf;
 
-            rafId = requestAnimationFrame(tick);
+        }
+
+
+        if (running) { //This still runs even after the component is unmounted
+            requestRef.current = requestAnimationFrame(tick);
             setRafCount(rafId);
-            //myThing.innerHTML = "rafId: " + rafId;
         }
     };
 
@@ -77,7 +82,7 @@ export default function Skully() {
             //this.micDelay.delayTime.value = this.props.audioDelayTime; //somewhere around 1
             source.connect(analyser);
     
-            rafId = requestAnimationFrame(tick);
+            requestRef.current = requestAnimationFrame(tick);
     
             }, error => {
             // Something went wrong, or the browser does not support getUserMedia
@@ -88,11 +93,13 @@ export default function Skully() {
         console.log("listen to MIC for scullly");
         fftSize = 64;
         smoothingTimeConstant = 0.2;
+        running = true;
         getAudio();
         
         return () => {
             console.log("stop listening to MIC for scullly");
-            cancelAnimationFrame(rafId);
+            cancelAnimationFrame(requestRef.current);
+            running = false;
         }
     }, []);
 
