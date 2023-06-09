@@ -1,0 +1,29 @@
+@import '/styles/_variables';
+
+.terrance {
+    position: absolute;
+    height: 400px;
+    bottom: -50px;
+    left: 185px;
+    transform: scale(0.8);
+
+    .head {
+        height: 100px;
+        position: absolute;
+        top: 0px;
+        left: 0px;  
+        transition-duration: 0.05s;
+        transition-property: top;
+
+        &.open {
+            top: -20px; 
+        }
+    }
+
+    .body {
+        height: 215px;
+        left: 31px;
+        top: 94px;
+        position: absolute;
+    }
+}
