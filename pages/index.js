@@ -18,7 +18,7 @@ export default function Home({twitchAccessToken, socketServer}) {
   const [sunkShipArray, setSunkShipArray] = useState([]);
   const [alignment, setCurrentAlignment] = useState("50");
   const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
-  const [headType, setHeadType] = useState("chenzo");
+  const [headType, setHeadType] = useState("canada");
   let chatInit = false;
   let socketInit = false;
 
@@ -49,6 +49,10 @@ export default function Home({twitchAccessToken, socketServer}) {
         }
         if(message.toLowerCase() === '!chenzo') {
           setHeadType('chenzo');
+        }
+
+        if(message.toLowerCase() === '!canada') {
+          setHeadType('canada');
         }
         setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
       });

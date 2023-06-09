@@ -1,7 +1,7 @@
 import styles from "./HeadShot.module.scss";
 import CircleAudioBars from "./CircleAudioBars";
-import { useState, useEffect } from "react";
 import Skully from "./Skully";
+import Terrance from "./Terrance";
 
 export default function HeadShot({headType}) {
 
@@ -26,6 +26,10 @@ export default function HeadShot({headType}) {
 
             {(headType == "skully") &&
                 <Skully/>
+            }
+
+            {(headType == "canada") &&
+                <Terrance/>
             }
             
         </div>
