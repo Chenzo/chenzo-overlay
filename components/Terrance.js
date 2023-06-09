@@ -1,4 +1,4 @@
-import styles from "./Skully.module.scss";
+import styles from "./Terrance.module.scss";
 import { useState, useEffect, useRef } from "react";
 
 export default function Terrance() {
@@ -9,9 +9,14 @@ export default function Terrance() {
     let canvas2, ctx, ctx2, width, height, radius, num_items;
     let myThing, fftSize, smoothingTimeConstant;
     let running = false;
+    let tilt = 0;
+    let trans = 0;
+    let lastTime = new Date();
+
 
     const [rafCount, setRafCount] = useState("000"); 
     const requestRef = useRef(null);
+    const headRef = useRef(null);
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -40,8 +45,27 @@ export default function Terrance() {
             alf = (nub *1.5) * .01;
         }
 
-        if (document.getElementById("skull_top_open")) {
-            if (nub > 50) {
+        const head = headRef.current;
+        //console.log(nub);
+
+        if (head) {
+
+            if (nub > 10) {
+                head.classList.add(styles.open);
+                const nowTime = new Date();
+                if (nowTime.getTime() - lastTime.getTime() >= 250) {
+                    const random = Math.random();
+                    tilt = random * 80 - 40;
+                    trans = (tilt < 0) ? -10 : 10;
+                    lastTime = nowTime;
+                }
+                head.style.transform = `rotate(${tilt}deg) translateX(${trans}px)`;
+            } else {
+                head.classList.remove(styles.open);
+                head.style.transform = "rotate(0deg) translateX(0px)";
+            }
+
+            /* if (nub > 50) {
                 document.getElementById("skull_top_open").classList.remove("hidden");
                 document.getElementById("skull_top").classList.add("open");
                 document.getElementById("skull_top_closed").classList.add("hidden");
@@ -52,7 +76,7 @@ export default function Terrance() {
             }
             document.getElementById("skull_top").style.top = topi + "px";
             document.getElementById("skull_jaw").style.top = jawi + "px";
-            document.getElementById("skull_bg").style.opacity = alf;
+            document.getElementById("skull_bg").style.opacity = alf; */
 
         }
 
@@ -90,14 +114,14 @@ export default function Terrance() {
     }
 
     useEffect(() => {
-        console.log("listen to MIC for scullly");
+        console.log("listen to MIC for terrance");
         fftSize = 64;
         smoothingTimeConstant = 0.2;
         running = true;
         getAudio();
         
         return () => {
-            console.log("stop listening to MIC for scullly");
+            console.log("stop listening to MIC for terrance");
             cancelAnimationFrame(requestRef.current);
             running = false;
         }
@@ -105,8 +129,8 @@ export default function Terrance() {
 
     return (
         <>
-            <div className={styles.Terrance}>
-                <img src="https://chenzorama.com/overlay/images/terrance_head.png" className={styles.head} />
+            <div className={styles.terrance}>
+                <img ref={headRef} src="https://chenzorama.com/overlay/images/terrance_head.png" className={styles.head} />
                 <img src="https://chenzorama.com/overlay/images/terrnace_body.png" className={styles.body} />
             </div>
         </>
