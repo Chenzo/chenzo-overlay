@@ -54,7 +54,7 @@ export default function Terrance() {
                 head.classList.remove(styles.closed);
                 //head.classList.add(styles.open);
                 const nowTime = new Date();
-                if (nowTime.getTime() - lastTime.getTime() >= 400) {
+                if (nowTime.getTime() - lastTime.getTime() >= 200) {
                     const random = Math.random();
                     tilt = random * 80 - 40;
                     trans = (tilt < 0) ? -10 : 10;
@@ -65,7 +65,7 @@ export default function Terrance() {
                 //const nowTime = new Date();
                 //if (nowTime.getTime() - lastTime.getTime() >= 150) {
                 //head.classList.remove(styles.open);
-                ead.classList.add(styles.closed);
+                head.classList.add(styles.closed);
                 head.style.transform = "rotate(0deg) translateX(0px)";
                 //}
             }
