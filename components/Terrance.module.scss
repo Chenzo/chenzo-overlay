@@ -10,13 +10,19 @@
     .head {
         height: 100px;
         position: absolute;
-        top: 0px;
+        top: -40px;
         left: 0px;  
-        transition-duration: 0.05s;
+        transition-duration: 5s;
         transition-property: top;
 
         &.open {
+            transition-duration: 2s;
             top: -20px; 
+        }
+
+        &.closed {
+            transition-duration: 2s;
+            top: 0px; 
         }
     }
 

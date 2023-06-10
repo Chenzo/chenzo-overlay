@@ -50,10 +50,11 @@ export default function Terrance() {
 
         if (head) {
 
-            if (nub > 40) {
-                head.classList.add(styles.open);
+            if (nub > 1) {
+                head.classList.remove(styles.closed);
+                //head.classList.add(styles.open);
                 const nowTime = new Date();
-                if (nowTime.getTime() - lastTime.getTime() >= 250) {
+                if (nowTime.getTime() - lastTime.getTime() >= 400) {
                     const random = Math.random();
                     tilt = random * 80 - 40;
                     trans = (tilt < 0) ? -10 : 10;
@@ -61,8 +62,12 @@ export default function Terrance() {
                 }
                 head.style.transform = `rotate(${tilt}deg) translateX(${trans}px)`;
             } else {
-                head.classList.remove(styles.open);
+                //const nowTime = new Date();
+                //if (nowTime.getTime() - lastTime.getTime() >= 150) {
+                //head.classList.remove(styles.open);
+                ead.classList.add(styles.closed);
                 head.style.transform = "rotate(0deg) translateX(0px)";
+                //}
             }
 
             /* if (nub > 50) {
