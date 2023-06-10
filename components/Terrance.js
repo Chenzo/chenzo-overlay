@@ -50,7 +50,7 @@ export default function Terrance() {
 
         if (head) {
 
-            if (nub > 10) {
+            if (nub > 40) {
                 head.classList.add(styles.open);
                 const nowTime = new Date();
                 if (nowTime.getTime() - lastTime.getTime() >= 250) {
