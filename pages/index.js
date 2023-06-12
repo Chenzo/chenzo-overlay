@@ -20,7 +20,7 @@ export default function Home({twitchAccessToken, socketServer}) {
   const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
   
   //random this perhaps: 
-  const [headType, setHeadType] = useState("canada");
+  const [headType, setHeadType] = useState("vumeter");
   let chatInit = false;
   let socketInit = false;
 
@@ -54,6 +54,9 @@ export default function Home({twitchAccessToken, socketServer}) {
         }
         if(message.toLowerCase() === '!canada') {
           setHeadType('canada');
+        }
+        if(message.toLowerCase() === '!vumeter') {
+          setHeadType('vumeter');
         }
         setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
       });

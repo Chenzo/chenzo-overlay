@@ -1,0 +1,47 @@
+@import '/styles/_variables';
+
+.vumeter {
+    position: absolute;
+    width: 375px;
+    bottom: 88px; 
+
+    .bgholder {
+        .bg {
+            width: 375px;
+        }
+    }
+}
+
+
+.controls {
+    position: absolute;
+    height: 122px;
+    width: 100%;
+    //background-color: rgba(0,0,255,0.5);
+    overflow: hidden;;
+
+    .needleHolder {
+        position: absolute;
+        left: 25%;
+        bottom: -40px;
+        height: 120px;
+        .needle {
+            height: 113px;
+            width: 3px;
+            background-color: #555;
+            transition-duration: 0.5s;
+            transition-property: transform;
+            transform-origin: bottom;
+            transform: rotate(-40deg);
+
+            &.active {
+                ttransition-duration: 0.2s;
+                
+            }
+        }
+
+        &.right {
+            left: 75%;
+        }
+    }
+}

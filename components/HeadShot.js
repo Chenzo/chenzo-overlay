@@ -2,14 +2,17 @@ import styles from "./HeadShot.module.scss";
 import CircleAudioBars from "./CircleAudioBars";
 import Skully from "./Skully";
 import Terrance from "./Terrance";
+import VuMeter from "./VuMeter";
 
 export default function HeadShot({headType}) {
 
     return (
         <div id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`}>
-            <div className={`goldBG ${styles.streamName}`}>
-                <div className="windlass">Mr<span>.</span> Chenzo</div>
-            </div>
+            {(headType != "vumeter") &&
+                <div className={`goldBG ${styles.streamName}`}>
+                    <div className="windlass">Mr<span>.</span> Chenzo</div>
+                </div>
+            }
             {(headType == "chenzo") &&
                 <>
                 <CircleAudioBars/>
@@ -30,6 +33,10 @@ export default function HeadShot({headType}) {
 
             {(headType == "canada") &&
                 <Terrance/>
+            }
+
+            {(headType == "vumeter") &&
+                <VuMeter/>
             }
             
         </div>
