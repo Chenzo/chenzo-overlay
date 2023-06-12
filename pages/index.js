@@ -92,6 +92,11 @@ const onToAuxEvent = function(evtData) {
       setCurrentAudio(evtData.target);
   }
 
+  if (evtData.event == "overlaycommand") {
+    console.log("DO THE THING - overlaycommand")
+    setHeadType(evtData.target);
+  }
+
   if (evtData.event == "addcrew") {
       console.log("trying to add crew");
       //displayOBJ.addCrew(evtData.target);

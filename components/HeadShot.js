@@ -4,16 +4,34 @@ import Skully from "./Skully";
 import Terrance from "./Terrance";
 import VuMeter from "./VuMeter";
 
+import { useState, useEffect, useRef } from "react";
+
+
+
 export default function HeadShot({headType}) {
 
+    const [currentHeadshot, setCurrentHeadshot] = useState(headType);
+    const headShotContainer = useRef(null);
+
+    useEffect(() => {
+        console.log("headhshot changed");
+        //setCurrentHeadshot(headType);
+        headShotContainer.current.classList.add(styles.switching);
+        setTimeout(() => {
+            headShotContainer.current.classList.remove(styles.switching);
+            setCurrentHeadshot(headType);
+        }, 500);
+    }, [headType]);
+    
+
     return (
-        <div id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`}>
-            {(headType != "vumeter") &&
+        <div ref={headShotContainer} id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`}>
+            {(currentHeadshot != "vumeter") &&
                 <div className={`goldBG ${styles.streamName}`}>
                     <div className="windlass">Mr<span>.</span> Chenzo</div>
                 </div>
             }
-            {(headType == "chenzo") &&
+            {(currentHeadshot == "chenzo") &&
                 <>
                 <CircleAudioBars/>
                 <div className={`${styles.imageContainer} ${styles.circleContainer}`}>
@@ -27,15 +45,15 @@ export default function HeadShot({headType}) {
                 </>
              }
 
-            {(headType == "skully") &&
+            {(currentHeadshot == "skully") &&
                 <Skully/>
             }
 
-            {(headType == "canada") &&
+            {(currentHeadshot == "canada") &&
                 <Terrance/>
             }
 
-            {(headType == "vumeter") &&
+            {(currentHeadshot == "vumeter") &&
                 <VuMeter/>
             }
             
