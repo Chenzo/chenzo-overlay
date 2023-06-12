@@ -8,6 +8,13 @@
     right: -50px;
     z-index: 4;
 
+    transition: transform .5s ease-in-out;
+    transform: translate(0px, 0);
+
+    &.switching {
+        transform: translate(500px, 0px);
+    }
+
     .streamName {
         padding: 6px 40px;
         position: absolute;
