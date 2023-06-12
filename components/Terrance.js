@@ -15,6 +15,7 @@ export default function Terrance() {
 
 
     const [rafCount, setRafCount] = useState("000"); 
+    const [nublist, setNublist] = useState([]); //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     const requestRef = useRef(null);
     const headRef = useRef(null);
 
@@ -29,6 +30,9 @@ export default function Terrance() {
         var pastNub = 0;
         var distancelimit = 3;
 
+
+
+        //console.log(dataArray)
         var l = dataArray.length;
         var sum = dataArray.reduce(function(a, b){
             return a + b;
@@ -49,22 +53,26 @@ export default function Terrance() {
         //console.log(nub);
 
         if (head) {
-
-            if (nub > 1) {
-                head.classList.remove(styles.closed);
+            const nowTime = new Date();
+            setNublist(nub);
+            if (nub > 0) {
+                //head.classList.remove(styles.closed);
                 //head.classList.add(styles.open);
-                const nowTime = new Date();
-                if (nowTime.getTime() - lastTime.getTime() >= 200) {
+                
+                if (nowTime.getTime() - lastTime.getTime() >= 300) {
+                    head.classList.remove(styles.closed);
                     const random = Math.random();
                     tilt = random * 80 - 40;
                     trans = (tilt < 0) ? -10 : 10;
                     lastTime = nowTime;
+                    head.style.transform = `rotate(${tilt}deg) translateX(${trans}px)`;
                 }
-                head.style.transform = `rotate(${tilt}deg) translateX(${trans}px)`;
+                
             } else {
                 //const nowTime = new Date();
                 //if (nowTime.getTime() - lastTime.getTime() >= 150) {
                 //head.classList.remove(styles.open);
+                //lastTime = nowTime;
                 head.classList.add(styles.closed);
                 head.style.transform = "rotate(0deg) translateX(0px)";
                 //}
@@ -135,6 +143,7 @@ export default function Terrance() {
     return (
         <>
             <div className={styles.terrance}>
+                <div>!!{nublist}</div>
                 <img ref={headRef} src="https://chenzorama.com/overlay/images/terrance_head.png" className={styles.head} />
                 <img src="https://chenzorama.com/overlay/images/terrnace_body.png" className={styles.body} />
             </div>
