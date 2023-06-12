@@ -13,6 +13,12 @@ export default function VuMeter() {
     const requestRef = useRef(null);
     const needleone = useRef(null);
     const needletwo = useRef(null);
+    const lightone = useRef(null);
+    const lighttwo = useRef(null);
+    const lightthree = useRef(null);
+    const lightfour = useRef(null);
+    const leftbg = useRef(null);
+    const rightbg = useRef(null);
 
     const tick = function() {
         analyser.getByteFrequencyData(dataArray);
@@ -43,25 +49,46 @@ export default function VuMeter() {
 
         const n1 = needleone.current;
         const n2 = needletwo.current;
+        const l1 = lightone.current;
+        const l2 = lighttwo.current;
+        const l3 = lightthree.current;
+        const l4 = lightfour.current;
+        const lb = leftbg.current;
+        const rb = rightbg.current;
 
         if (n1) {
             if (nub > 10) {
-                console.log(nub)
-                n1.classList.remove(styles.active);
-                n2.classList.remove(styles.active);
+                n1.classList.add(styles.active);
+                n2.classList.add(styles.active);
+                //lightone.current.classList.add(styles.active);
                 tilt = -40 + (nub * 1.5);               
                 if (tilt > 40) {
                     tilt = 40;
                 }
                 const random = Math.random();
-                let tilt2 = tilt + (random * 4 - 2);
+                
+                let tilt2 = tilt + parseInt(random * 4 - 2);
                 n1.style.transform = `rotate(${tilt}deg)`;
                 n2.style.transform = `rotate(${tilt2}deg)`;
+                l1.style.opacity = (nub * 0.05);
+                l2.style.opacity = (nub * 0.05);
+                l3.style.opacity = (nub * 0.05);
+                l4.style.opacity = (nub * 0.05);
+                lb.style.opacity = 0;
+                rb.style.opacity = 0;
+
             } else {
                 n1.classList.remove(styles.active);
                 n1.style.transform = "rotate(-40deg)";
                 n2.classList.remove(styles.active);
                 n2.style.transform = "rotate(-40deg)";
+                //lightone.current.classList.remove(styles.active);
+                l1.style.opacity = 0;
+                l2.style.opacity = 0;
+                l3.style.opacity = 0;
+                l4.style.opacity = 0;
+                lb.style.opacity = 0.2;
+                rb.style.opacity = 0.2;
             }
 
         }
@@ -111,15 +138,26 @@ export default function VuMeter() {
     return (
         <>
             <div className={styles.vumeter}>
-                <div className={styles.controls}>
-                    <div className={styles.needleHolder}>
-                        <div ref={needleone} className={styles.needle}></div>
-                    </div>
+                <article className={styles.power}>
+                    <div ref={leftbg} className={styles.left}></div>
+                    <div ref={rightbg} className={styles.right}></div>
+                </article>
 
+                <article className={styles.controls}>
+                    <aside className={styles.needleHolder}>
+                        <div ref={needleone} className={styles.needle}></div>
+                    </aside>
+                    <aside className={styles.lights}>
+                        <div ref={lightone} className={styles.light}></div>
+                        <div ref={lighttwo} className={`${styles.light} ${styles.two}`}></div>
+                        <div ref={lightthree} className={`${styles.light} ${styles.three}`}></div>
+                        <div ref={lightfour} className={`${styles.light} ${styles.four}`}></div>
+                    </aside>
                     <div className={`${styles.needleHolder} ${styles.right}`}>
                         <div ref={needletwo} className={styles.needle}></div>
                     </div>
-                </div>
+                    
+                </article>
                 <div className={styles.bgholder}>
                     <img src="https://chenzorama.com/overlay/images/vu_meter.jpg" className={styles.bg} />
                 </div>

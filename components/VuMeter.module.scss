@@ -25,17 +25,18 @@
         left: 25%;
         bottom: -40px;
         height: 120px;
+        z-index: 5;
         .needle {
             height: 113px;
             width: 3px;
             background-color: #555;
-            transition-duration: 0.5s;
+            transition-duration: 0.4s;
             transition-property: transform;
             transform-origin: bottom;
             transform: rotate(-40deg);
 
             &.active {
-                ttransition-duration: 0.2s;
+                ttransition-duration: 0.02s;
                 
             }
         }
@@ -43,5 +44,65 @@
         &.right {
             left: 75%;
         }
+    }
+
+    .lights {
+        position: absolute;
+        left: 0;
+        z-index: 10;
+        height: 120px;
+        z-index: 4;
+
+        .light {
+            position: absolute;
+            height: 120px;
+            width: 100px;
+            left: 30px;
+            bottom: -60px;
+            //background: radial-gradient(circle at center, rgba(255,0,0,1) 0%, rgba(255,231,0,0) 70%);
+            background: radial-gradient(circle at center, rgba(253,252,222,0.5) 10%,  rgba(255,231,0,0) 70%);
+            //background: red;
+            transform: skew(15deg, 15deg);
+            transition-duration: 0.5s;
+            transition-property: opacity;
+            transition-timing-function: ease-in-out;
+            opacity: 0;
+            &.active {
+                opacity: 0.9
+            }
+
+            &.two {
+                left: 56px;
+                transform: skew(-15deg, -15deg);
+            }
+
+            &.three {
+                left: 214px;
+            }
+
+            &.four {
+                left: 264px;
+            }
+        }
+    }
+}
+
+
+.power {
+    position: absolute;
+    .left, .right {
+        position: absolute;
+        left: 18px;
+        top: 24px;
+        background-color: black;
+        width: 158px;
+        height: 95px;
+        opacity: 0.2;
+        transition-property: opacity;
+        transition-duration: 0.5s;
+    }
+
+    .right {
+        left: 199px;
     }
 }
