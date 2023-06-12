@@ -61,7 +61,7 @@ export default function VuMeter() {
                 n1.classList.add(styles.active);
                 n2.classList.add(styles.active);
                 //lightone.current.classList.add(styles.active);
-                tilt = -40 + (nub * 1.5);               
+                tilt = -40 + (nub * 1.3);               
                 if (tilt > 40) {
                     tilt = 40;
                 }
