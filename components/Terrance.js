@@ -13,9 +13,6 @@ export default function Terrance() {
     let trans = 0;
     let lastTime = new Date();
 
-
-    const [rafCount, setRafCount] = useState("000"); 
-    const [nublist, setNublist] = useState([]); //[0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     const requestRef = useRef(null);
     const headRef = useRef(null);
 
@@ -31,15 +28,12 @@ export default function Terrance() {
         var distancelimit = 3;
 
 
-
-        //console.log(dataArray)
         var l = dataArray.length;
         var sum = dataArray.reduce(function(a, b){
             return a + b;
         }, 0);
 
         var nub = ~~(sum / l);
-        //document.getElementById("numoutput").innerHTML= nub;
 
         if (nub > pastNub + distancelimit || nub < pastNub - distancelimit) {
             pastNub = nub;
@@ -50,14 +44,10 @@ export default function Terrance() {
         }
 
         const head = headRef.current;
-        //console.log(nub);
 
         if (head) {
             const nowTime = new Date();
-            setNublist(nub);
             if (nub > 0) {
-                //head.classList.remove(styles.closed);
-                //head.classList.add(styles.open);
                 
                 if (nowTime.getTime() - lastTime.getTime() >= 300) {
                     head.classList.remove(styles.closed);
@@ -69,34 +59,15 @@ export default function Terrance() {
                 }
                 
             } else {
-                //const nowTime = new Date();
-                //if (nowTime.getTime() - lastTime.getTime() >= 150) {
-                //head.classList.remove(styles.open);
-                //lastTime = nowTime;
                 head.classList.add(styles.closed);
                 head.style.transform = "rotate(0deg) translateX(0px)";
-                //}
             }
-
-            /* if (nub > 50) {
-                document.getElementById("skull_top_open").classList.remove("hidden");
-                document.getElementById("skull_top").classList.add("open");
-                document.getElementById("skull_top_closed").classList.add("hidden");
-            } else {
-                document.getElementById("skull_top_open")?.classList.add("hidden");
-                document.getElementById("skull_top")?.classList.remove("open");
-                document.getElementById("skull_top_closed")?.classList.remove("hidden");
-            }
-            document.getElementById("skull_top").style.top = topi + "px";
-            document.getElementById("skull_jaw").style.top = jawi + "px";
-            document.getElementById("skull_bg").style.opacity = alf; */
 
         }
 
 
         if (running) { //This still runs even after the component is unmounted
             requestRef.current = requestAnimationFrame(tick);
-            setRafCount(rafId);
         }
     };
 
@@ -104,19 +75,15 @@ export default function Terrance() {
         navigator.mediaDevices.getUserMedia({
             audio: true
         }).then(stream => {
-            // Handle the incoming audio stream
             audioContext = new (window.AudioContext ||
                 window.webkitAudioContext)();
-             //this.micDelay = this.audioContext.createDelay(0);
             analyser = audioContext.createAnalyser();
             analyser.minDecibels = -90;
             analyser.maxDecibels = -10;
             analyser.smoothingTimeConstant = smoothingTimeConstant;
             analyser.fftSize = fftSize;
             dataArray = new Uint8Array(analyser.frequencyBinCount);
-            //var bufferLength = analyser.frequencyBinCount;
             source = audioContext.createMediaStreamSource(stream);
-            //this.micDelay.delayTime.value = this.props.audioDelayTime; //somewhere around 1
             source.connect(analyser);
     
             requestRef.current = requestAnimationFrame(tick);
@@ -143,7 +110,6 @@ export default function Terrance() {
     return (
         <>
             <div className={styles.terrance}>
-                <div>!!{nublist}</div>
                 <img ref={headRef} src="https://chenzorama.com/overlay/images/terrance_head.png" className={styles.head} />
                 <img src="https://chenzorama.com/overlay/images/terrnace_body.png" className={styles.body} />
             </div>
