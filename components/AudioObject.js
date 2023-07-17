@@ -43,7 +43,11 @@ export default function AudioObject({currentAudio, setCurrentAudio}) {
         } else if (audioName == "warrenty") {
             theAudio.src = "https://chenzorama.com/overlay/audio/warrenty.mp3";
             theAudio.volume = 1;
-        } 
+        } else if (audioName == "blastem") {
+            theAudio.src = "https://chenzorama.com/overlay/audio/blast-them.mp3";
+            theAudio.volume = 1;
+        }  
+        
 
         theAudio.addEventListener("ended", function() {
             setCurrentAudio("")
