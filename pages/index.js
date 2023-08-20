@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 //import { Socket } from 'socket.io-client'
 import { io } from 'socket.io-client'
 
@@ -10,6 +10,9 @@ import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
 import AudioObject from 'components/AudioObject';
 import Sunks from 'components/Sunks';
+
+
+import ChannelPoints from 'lib/ChannelPoints';
 
 export default function Home({twitchAccessToken, socketServer}) {
 
@@ -157,11 +160,40 @@ const onAnEvent = function(theEventDat) {
     }
   }
 
+  const setUpChannelPointsPolling = useCallback(() => {
+    console.log("!!!!!only call me once");
+    //ChannelPoints(twitchAccessToken);
+  }, []);
+
+  useEffect(() => {
+    setUpChannelPointsPolling();
+  }, [setUpChannelPointsPolling]);
+
+
   useEffect(() => {
     console.log("initSocket");
-    initSocket();
-    startChat();
+    //initSocket();
+    //startChat();
+    //ChannelPoints(twitchAccessToken);
+
+    /* const getValid = async () => {
+      let token = "zu5hpg67kjpy6ul7j44i07rqi9kop9";
+      const body  = await fetch(`https://id.twitch.tv/oauth2/validate`, {
+        method: 'GET',
+        headers: {
+            "Authorization": `OAuth ${token}`
+        }
+      })
+      const data = await body.json();
+      console.log(data);
+    };
+
+    getValid(); */
+
 }, []);
+
+
+
 
 
 
@@ -191,9 +223,12 @@ export async function getServerSideProps() {
       method: 'POST',
     })
   const jsonData = await fData.json()
-  const twitchAccessToken = jsonData.access_token;  
+  //const twitchAccessToken = jsonData.access_token;  
 
   const socketServer =  process.env.NEXT_PUBLIC_SOCKET_SERVER;
+
+  const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN;
+  
 
   return { props: { twitchAccessToken, socketServer } }
 }
