@@ -13,8 +13,11 @@ import Sunks from 'components/Sunks';
 
 
 import ChannelPoints from 'lib/ChannelPoints';
+//import connectToDatabase  from 'lib/Database';
+import clientPromise from '../lib/mongodb'
 
-export default function Home({twitchAccessToken, socketServer}) {
+
+export default function Home({twitchAccessToken, socketServer, overlayData}) {
 
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
@@ -23,7 +26,7 @@ export default function Home({twitchAccessToken, socketServer}) {
   const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
   
   //random this perhaps: 
-  const [headType, setHeadType] = useState("vumeter");
+  const [headType, setHeadType] = useState("chenzo");
   let chatInit = false;
   let socketInit = false;
 
@@ -192,8 +195,8 @@ const onAnEvent = function(theEventDat) {
 
 }, []);
 
-
-
+  console.log("OVERLAYDATA: ");
+  console.log(overlayData)
 
 
 
@@ -218,17 +221,67 @@ const onAnEvent = function(theEventDat) {
 
 export async function getServerSideProps() {
 
-  //Get Twitch Access Token  
-  const fData = await fetch('https://id.twitch.tv/oauth2/token?client_id=' + process.env.NEXT_PUBLIC_CLIENT_ID + '&client_secret=' + process.env.NEXT_PUBLIC_CLIENT_SECRET + '&grant_type=client_credentials', {
+  const wait = true;
+
+  const tokenUrl = 'https://id.twitch.tv/oauth2/token';
+  const params = new URLSearchParams({
+    client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+    client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+    //code: code,
+    grant_type: 'client_credentials', //authorization_code
+    //redirect_uri: redirectUri
+  });
+
+  let twitchAccessTokenFromTV = "123456789fake";
+  if (!wait) {
+    console.log('getting real token');
+    const fData = await fetch(tokenUrl, {
       method: 'POST',
+      body: params
     })
-  const jsonData = await fData.json()
-  //const twitchAccessToken = jsonData.access_token;  
+
+    const jsonData = await fData.json()
+    console.log(jsonData);
+    twitchAccessTokenFromTV = jsonData.access_token;  
+
+  } 
+
+  //Made Postman calls for this for deving. - Vince 08/20/2023
 
   const socketServer =  process.env.NEXT_PUBLIC_SOCKET_SERVER;
+  //const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; //this is for testing only.
+  const twitchAccessToken = twitchAccessTokenFromTV;
 
-  const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN;
+    let dbName = 'ship-logs';
+  if (process.env.NODE_ENV === 'development') {
+    console.log('development mode');
+    dbName = 'ship-logs-dev';
+  } 
+
+  console.log('using dbName: ', dbName);
+  try {
+    const client = await clientPromise
+    const db = client.db(dbName);
+    const overlayDataCall = await db
+    .collection("thbar_data")
+    .find({})
+    .limit(10)
+    .toArray();
+
+      let overlayData = JSON.parse(JSON.stringify(overlayDataCall))
+      return {
+        props: { 
+          twitchAccessToken, 
+          socketServer,  
+          overlayData
+        }
+    };
+  } catch (e) {
+    console.error(e)
+    return { props: { twitchAccessToken, socketServer } }
+  }
+
   
 
-  return { props: { twitchAccessToken, socketServer } }
+
 }
