@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import LatestFollowers from "./LatestFollowers";
 import ChatScroller from "./ChatScroller";
 
-export default function Footer({twitchAccessToken, lastChat}) {
+export default function Footer({lastChat}) {
 
     const [isHidden, setIsHidden] = useState(false);
     const [tmr, setTMR] = useState(0);
@@ -23,7 +23,7 @@ export default function Footer({twitchAccessToken, lastChat}) {
     return (
         <footer className={styles.chenzo_footer}>
             <div className={`${styles.followers} ${(isHidden) ? styles.hidden : ""}`}>
-                <LatestFollowers twitchAccessToken={twitchAccessToken}/>
+                <LatestFollowers/>
             </div>
             <ChatScroller lastChat={lastChat}/>
         </footer>

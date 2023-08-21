@@ -11,13 +11,16 @@ import Footer from 'components/Footer'
 import AudioObject from 'components/AudioObject';
 import Sunks from 'components/Sunks';
 
+import { getOverlayServerSideProps } from 'lib/getOverlayServerSideProps';
+import { useOverlayContext } from 'lib/overlay.context'
 
 import ChannelPoints from 'lib/ChannelPoints';
-//import connectToDatabase  from 'lib/Database';
-import clientPromise from '../lib/mongodb'
 
 
-export default function Home({twitchAccessToken, socketServer, overlayData}) {
+export default function Home({twitchAccessToken, socketServer, overlayData, followers}) {
+
+  const { setLatestFollowers } = useOverlayContext();
+  
 
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
@@ -32,14 +35,18 @@ export default function Home({twitchAccessToken, socketServer, overlayData}) {
 
 
   const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
+  //const token = `oauth:${twitchAccessToken}`;
+
+  console.log("this is the OAUTH token: " + token);
   const client = new Client({
-    options: { 
-      debug: false
+    //Not posting, so don't require these.
+    /* options: { 
+      debug: true
     },
     identity: {
       username: 'chenzorama',
       password: token
-    },
+    }, */
     channels: [ 'chenzorama' ]
   })
 
@@ -166,6 +173,7 @@ const onAnEvent = function(theEventDat) {
   const setUpChannelPointsPolling = useCallback(() => {
     console.log("!!!!!only call me once");
     //ChannelPoints(twitchAccessToken);
+    setLatestFollowers(followers);
   }, []);
 
   useEffect(() => {
@@ -176,28 +184,10 @@ const onAnEvent = function(theEventDat) {
   useEffect(() => {
     console.log("initSocket");
     //initSocket();
-    //startChat();
+    startChat();
     //ChannelPoints(twitchAccessToken);
 
-    /* const getValid = async () => {
-      let token = "zu5hpg67kjpy6ul7j44i07rqi9kop9";
-      const body  = await fetch(`https://id.twitch.tv/oauth2/validate`, {
-        method: 'GET',
-        headers: {
-            "Authorization": `OAuth ${token}`
-        }
-      })
-      const data = await body.json();
-      console.log(data);
-    };
-
-    getValid(); */
-
 }, []);
-
-  console.log("OVERLAYDATA: ");
-  console.log(overlayData)
-
 
 
   return (
@@ -218,7 +208,9 @@ const onAnEvent = function(theEventDat) {
   )
 }
 
+export const getServerSideProps = async (context) => await getOverlayServerSideProps(context);
 
+/* 
 export async function getServerSideProps() {
 
   const wait = true;
@@ -284,4 +276,4 @@ export async function getServerSideProps() {
   
 
 
-}
+} */
