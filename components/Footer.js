@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 
 import LatestFollowers from "./LatestFollowers";
 import ChatScroller from "./ChatScroller";
+import { useOverlayContext } from 'lib/overlay.context'
 
-export default function Footer({lastChat}) {
+export default function Footer() {
+
+    const { lastChat } = useOverlayContext();
 
     const [isHidden, setIsHidden] = useState(false);
     const [tmr, setTMR] = useState(0);

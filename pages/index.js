@@ -3,8 +3,6 @@ import { useState, useEffect, useCallback } from "react";
 //import { Socket } from 'socket.io-client'
 import { io } from 'socket.io-client'
 
-import { Client } from 'tmi.js';
-
 import Header from 'components/Header'
 import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
@@ -13,70 +11,23 @@ import Sunks from 'components/Sunks';
 
 import { getOverlayServerSideProps } from 'lib/getOverlayServerSideProps';
 import { useOverlayContext } from 'lib/overlay.context'
+import { getChat } from 'lib/getChat';
 
 import ChannelPoints from 'lib/ChannelPoints';
 
 
 export default function Home({twitchAccessToken, socketServer, overlayData, followers}) {
 
-  const { setLatestFollowers } = useOverlayContext();
+  const { setLatestFollowers, setLastChat } = useOverlayContext();
   
 
   let socket;
   const [currentAudio, setCurrentAudio] = useState(""); 
   const [sunkShipArray, setSunkShipArray] = useState([]);
   const [alignment, setCurrentAlignment] = useState("50");
-  const [lastChat, setLastChat] = useState({id: "123fsd", usr: "Twitch", msg: "Chat Initializing"});
-  
   //random this perhaps: 
   const [headType, setHeadType] = useState("chenzo");
-  let chatInit = false;
   let socketInit = false;
-
-
-  const token = `oauth:${process.env.NEXT_PUBLIC_OAUTH}`;
-  //const token = `oauth:${twitchAccessToken}`;
-
-  console.log("this is the OAUTH token: " + token);
-  const client = new Client({
-    //Not posting, so don't require these.
-    /* options: { 
-      debug: true
-    },
-    identity: {
-      username: 'chenzorama',
-      password: token
-    }, */
-    channels: [ 'chenzorama' ]
-  })
-
-  const startChat = () => {
-    if (!chatInit) {
-
-      client.connect().catch(console.error);
-      client.on('message', (channel, tags, message, self) => {
-        if(self) return;
-        if(message.toLowerCase() === '!hello') {
-          client.say(channel, `@${tags.username}, heya!`);
-        }
-        if(message.toLowerCase() === '!scooby') {
-          setHeadType('skully');
-        }
-        if(message.toLowerCase() === '!chenzo') {
-          setHeadType('chenzo');
-        }
-        if(message.toLowerCase() === '!canada') {
-          setHeadType('canada');
-        }
-        if(message.toLowerCase() === '!vumeter') {
-          setHeadType('vumeter');
-        }
-        setLastChat({id: tags.id, usr: tags.username, msg: message, emotes: tags.emotes})
-      });
-      chatInit = true;
-    }
-  }
-
   
 
   const socket_user_name = 'thbar_obs';
@@ -182,12 +133,11 @@ const onAnEvent = function(theEventDat) {
 
 
   useEffect(() => {
-    console.log("initSocket");
     //initSocket();
-    startChat();
     //ChannelPoints(twitchAccessToken);
+    let chat = getChat(setLastChat);
 
-}, []);
+  }, []);
 
 
   return (
@@ -202,78 +152,10 @@ const onAnEvent = function(theEventDat) {
 
       </main>
         <Sunks sunkShipArray={sunkShipArray}/>
-        <Footer twitchAccessToken={twitchAccessToken} lastChat={lastChat}/>
+        <Footer />
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
     </>
   )
 }
 
 export const getServerSideProps = async (context) => await getOverlayServerSideProps(context);
-
-/* 
-export async function getServerSideProps() {
-
-  const wait = true;
-
-  const tokenUrl = 'https://id.twitch.tv/oauth2/token';
-  const params = new URLSearchParams({
-    client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
-    client_secret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
-    //code: code,
-    grant_type: 'client_credentials', //authorization_code
-    //redirect_uri: redirectUri
-  });
-
-  let twitchAccessTokenFromTV = "123456789fake";
-  if (!wait) {
-    console.log('getting real token');
-    const fData = await fetch(tokenUrl, {
-      method: 'POST',
-      body: params
-    })
-
-    const jsonData = await fData.json()
-    console.log(jsonData);
-    twitchAccessTokenFromTV = jsonData.access_token;  
-
-  } 
-
-  //Made Postman calls for this for deving. - Vince 08/20/2023
-
-  const socketServer =  process.env.NEXT_PUBLIC_SOCKET_SERVER;
-  //const twitchAccessToken = process.env.TWITCH_ACCESS_TOKEN; //this is for testing only.
-  const twitchAccessToken = twitchAccessTokenFromTV;
-
-    let dbName = 'ship-logs';
-  if (process.env.NODE_ENV === 'development') {
-    console.log('development mode');
-    dbName = 'ship-logs-dev';
-  } 
-
-  console.log('using dbName: ', dbName);
-  try {
-    const client = await clientPromise
-    const db = client.db(dbName);
-    const overlayDataCall = await db
-    .collection("thbar_data")
-    .find({})
-    .limit(10)
-    .toArray();
-
-      let overlayData = JSON.parse(JSON.stringify(overlayDataCall))
-      return {
-        props: { 
-          twitchAccessToken, 
-          socketServer,  
-          overlayData
-        }
-    };
-  } catch (e) {
-    console.error(e)
-    return { props: { twitchAccessToken, socketServer } }
-  }
-
-  
-
-
-} */
