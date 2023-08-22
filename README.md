@@ -16,3 +16,10 @@ https://dev.twitch.tv/console
 Next-Auth - Twitch:
 https://next-auth.js.org/providers/twitch
 
+
+https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/#authorization-code-grant-flow
+
+
+https://github.com/Chenzo/channel-points-node-sample
+
+

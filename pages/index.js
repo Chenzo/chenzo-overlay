@@ -31,7 +31,8 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
 
   useEffect(() => {
     if (once) {
-      ChannelPoints(twitchAccessToken);
+      console.log("call channel points: ");
+     // ChannelPoints(twitchAccessToken);
       let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
       setLatestFollowers(followers);
       let chat = getChat(setLastChat);
