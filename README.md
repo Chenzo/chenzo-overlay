@@ -23,4 +23,6 @@ https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/#authorization-co
 https://github.com/Chenzo/channel-points-node-sample
 
 
-fixing preview branch
+preview branchs: 
+<project-name>-git-<branch-name>-<scope-slug>.vercel.app;
+https://chenzo-overlay-git-blastem-chenzo.vercel.app/
