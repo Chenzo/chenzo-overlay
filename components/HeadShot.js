@@ -22,10 +22,14 @@ export default function HeadShot({headType}) {
             setCurrentHeadshot(headType);
         }, 500);
     }, [headType]);
+
+    const goToLogin = () => {
+        window.location.href = "/login";
+    }
     
 
     return (
-        <div ref={headShotContainer} id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`}>
+        <div ref={headShotContainer} id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`} onClick={goToLogin}>
             {(currentHeadshot != "vumeter") &&
                 <div className={`goldBG ${styles.streamName}`}>
                     <div className="windlass">Mr<span>.</span> Chenzo</div>

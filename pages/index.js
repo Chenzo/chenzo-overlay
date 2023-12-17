@@ -16,9 +16,13 @@ import { getSocket } from 'lib/getSocket';
 
 import ChannelPoints from 'lib/ChannelPoints';
 
+//import { useSession } from "next-auth/react"
+
 let once = true;
 
 export default function Home({twitchAccessToken, overlayData, followers}) {
+
+  //const { data: session} = useSession();
 
   const { setLatestFollowers, setLastChat } = useOverlayContext();
   
@@ -33,9 +37,9 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
     if (once) {
       console.log("call channel points: ");
      // ChannelPoints(twitchAccessToken);
-      let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
+      //let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
       setLatestFollowers(followers);
-      let chat = getChat(setLastChat);
+      //let chat = getChat(setLastChat);
       once = false;
     }
   }, []);
@@ -50,7 +54,6 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
       <Header alignment={alignment}/>
       <main>
           <HeadShot headType={headType}/>
-
       </main>
         <Sunks sunkShipArray={sunkShipArray}/>
         <Footer />

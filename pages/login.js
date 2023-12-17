@@ -1,7 +1,23 @@
-import Head from 'next/head'
+
+import { useSession, signIn, signOut } from "next-auth/react"
+
 
 export default function Login() {
-    return(
-        <div>Log into twitch</div>
+    const { data: session } = useSession()
+    if (session) {
+      return (
+        <>
+          Signed in as {session.user.email} <br />
+          <button onClick={() => signOut()}>Sign out</button>
+
+          <a href="/">Return To Page</a>
+        </>
+      )
+    }
+    return (
+      <>
+        Not signed in <br />
+        <button onClick={() => signIn()}>Sign in</button>
+      </>
     )
 }
