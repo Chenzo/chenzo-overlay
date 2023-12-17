@@ -1,6 +1,6 @@
 
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import Link from 'next/link'
 
 export default function Login() {
     const { data: session } = useSession()
@@ -9,8 +9,9 @@ export default function Login() {
         <>
           Signed in as {session.user.email} <br />
           <button onClick={() => signOut()}>Sign out</button>
-
-          <a href="/">Return To Page</a>
+          <br/>
+          <br/>
+          <Link href="/">Back To Overlay</Link>
         </>
       )
     }
