@@ -15,7 +15,7 @@ export const authOptions = {
     // ...add more providers here
   ],
   /* adapter: MongoDBAdapter(clientPromise), */
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: "process.env.NEXTAUTH_SECRET",
   /* pages: {
     signIn: '/login',
     signOut: '/'
