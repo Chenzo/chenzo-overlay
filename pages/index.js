@@ -37,9 +37,9 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
     if (once) {
       console.log("call channel points: ");
      // ChannelPoints(twitchAccessToken);
-      //let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
+      let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
       setLatestFollowers(followers);
-      //let chat = getChat(setLastChat);
+      let chat = getChat(setLastChat);
       once = false;
     }
   }, []);
