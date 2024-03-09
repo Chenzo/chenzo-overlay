@@ -29,7 +29,7 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
   const [currentAudio, setCurrentAudio] = useState(""); 
   const [sunkShipArray, setSunkShipArray] = useState([]);
   const [alignment, setCurrentAlignment] = useState("50");
-  const [headType, setHeadType] = useState("chenzo");
+  const [headType, setHeadType] = useState("blank");
 
 
 
