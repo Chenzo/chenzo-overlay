@@ -30,7 +30,7 @@ export default function HeadShot({headType}) {
 
     return (
         <div ref={headShotContainer} id="headshot" className={`${styles.avContainer} ${styles.HeadShot}`} onClick={goToLogin}>
-            {(currentHeadshot != "vumeter") &&
+            {(currentHeadshot != "vumeter" && currentHeadshot != "blank") &&
                 <div className={`goldBG ${styles.streamName}`}>
                     <div className="windlass">Mr<span>.</span> Chenzo</div>
                 </div>
