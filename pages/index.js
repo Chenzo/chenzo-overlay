@@ -8,6 +8,7 @@ import HeadShot from 'components/HeadShot'
 import Footer from 'components/Footer'
 import AudioObject from 'components/AudioObject';
 import Sunks from 'components/Sunks';
+import DiscordImage from 'components/DiscordImage';
 
 import { getOverlayServerSideProps } from 'lib/getOverlayServerSideProps';
 import { useOverlayContext } from 'lib/overlay.context'
@@ -31,13 +32,19 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
   const [alignment, setCurrentAlignment] = useState("50");
   const [headType, setHeadType] = useState("blank");
 
+  const [pushedImage, setPushedImage] = useState(null);
 
+
+  useEffect(() => {
+    console.log("pushed image: ");
+    console.log(pushedImage);
+  }, [pushedImage]);
 
   useEffect(() => {
     if (once) {
       console.log("call channel points: ");
      // ChannelPoints(twitchAccessToken);
-      let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment);
+      let socket = getSocket(setCurrentAudio, setHeadType, setSunkShipArray, setCurrentAlignment, setPushedImage);
       setLatestFollowers(followers);
       let chat = getChat(setLastChat);
       once = false;
@@ -49,12 +56,13 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
     
     <>
       <Head>
-        <title>Chenzo&apos;s Overlay</title>
+        <title>Chenzo&apos;s Overlay!</title>
       </Head>
       <Header alignment={alignment}/>
       <main>
           <HeadShot headType={headType}/>
       </main>
+        <DiscordImage pushedImage={pushedImage} setPushedImage={setPushedImage}/>
         <Sunks sunkShipArray={sunkShipArray}/>
         <Footer />
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />
