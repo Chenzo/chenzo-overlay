@@ -8,6 +8,7 @@ export default function Document() {
         <Main />
         <NextScript />
       </body>
+     {/*  <script type="text/javascript" async src="https://tenor.com/embed.js"></script> */}
     </Html>
   )
 }
