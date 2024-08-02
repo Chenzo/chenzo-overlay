@@ -10,11 +10,15 @@
     justify-content: center;
     align-items: center;
 
-    aside {
-        width: 50%;
+    aside.imageAside {
+        width: 40%;
         height: 50%;
         opacity: 0;
         animation: fadeInOut 11s ease-in-out forwards;
+
+        &.tenor {
+            width: 20%;
+        }
 
         img {
             width: 100%;
