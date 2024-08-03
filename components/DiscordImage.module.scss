@@ -13,17 +13,21 @@
     aside.imageAside {
         width: 40%;
         height: 50%;
-        opacity: 0;
-        animation: fadeInOut 11s ease-in-out forwards;
+        position: relative;
+        //opacity: 0;
+        //animation: fadeInOut 11s ease-in-out forwards;
 
         &.tenor {
             width: 20%;
         }
 
-        img {
+        img.theImage {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+        .titleCard {
+            position: absolute;
         }
     }
 }

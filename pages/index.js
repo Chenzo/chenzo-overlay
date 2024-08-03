@@ -62,7 +62,7 @@ export default function Home({twitchAccessToken, overlayData, followers}) {
       <main>
           <HeadShot headType={headType}/>
       </main>
-        <DiscordImage pushedImage={pushedImage} setPushedImage={setPushedImage}/>
+        <DiscordImage pushedImage={pushedImage} setPushedImage={setPushedImage} setCurrentAudio={setCurrentAudio}/>
         <Sunks sunkShipArray={sunkShipArray}/>
         <Footer />
         <AudioObject currentAudio={currentAudio} setCurrentAudio={setCurrentAudio} />

@@ -3,7 +3,7 @@ import styles from "./DiscordImage.module.scss";
 import { useState, useEffect } from "react";
 
 
-export default function DiscordImage({pushedImage, setPushedImage}) {
+export default function DiscordImage({pushedImage, setPushedImage, setCurrentAudio}) {
 
     const [postid, setPostid] = useState(null);
     const [isTenor, setIsTenor] = useState(false);  
@@ -29,8 +29,8 @@ export default function DiscordImage({pushedImage, setPushedImage}) {
         }
 
 
-
-
+        console.log("setting audio to shutter");
+        setCurrentAudio("shutter");
         const timer = setTimeout(() => {
             console.log("clearing pushed image");
             setPushedImage(null);
@@ -58,10 +58,15 @@ export default function DiscordImage({pushedImage, setPushedImage}) {
 
     return (
         <div className={styles.DiscordImage}>
-            {pushedImage && 
+            {!pushedImage && 
                 <aside className={`${styles.imageAside} ${isTenor ? styles.tenor : null}`}>
-                    {!isTenor && <img src={pushedImage.url} className={styles.pushedImage} />}
-                    {isTenor && <div class="tenor-gif-embed" data-postid={postid} data-share-method="host" data-aspect-ratio="0.833333" data-width="100%"><a href={pushedImage.url}>Loading Image From tenor</a></div> }
+                    <img src="https://cdn.dribbble.com/users/185738/screenshots/2751203/cowboy.gif" className={styles.theImage} />
+                    {/* {!isTenor && <img src={pushedImage.url} className={styles.pushedImage} />}
+                    {isTenor && <div className="tenor-gif-embed" data-postid={postid} data-share-method="host" data-aspect-ratio="0.833333" data-width="100%"><a href={pushedImage.url}>Loading Image From tenor</a></div> } */}
+                    <div className={styles.titleCard}>
+                    <p>Chenzo pushed this image posted by Binobo in #channel!!</p>
+                    <img src="/images/tbanner.png" className={styles.imageBanner}/>
+                    </div>
                 </aside>
             }
         </div>

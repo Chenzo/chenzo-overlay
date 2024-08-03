@@ -46,6 +46,9 @@ export default function AudioObject({currentAudio, setCurrentAudio}) {
         } else if (audioName == "blastem") {
             theAudio.src = "https://chenzorama.com/overlay/audio/blast-them.mp3";
             theAudio.volume = 1;
+        }  else if (audioName == "shutter") {
+            theAudio.src = "https://chenzorama.com/overlay/shutter-sound.mp3";
+            theAudio.volume = 1;
         }  
         
 
@@ -59,6 +62,7 @@ export default function AudioObject({currentAudio, setCurrentAudio}) {
 
 
     useEffect(() => {
+        console.log('audio audio');
         if (!isPlaying && currentAudio != "") {
             findAndPlay(currentAudio);
         }
