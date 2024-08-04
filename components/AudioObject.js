@@ -47,7 +47,7 @@ export default function AudioObject({currentAudio, setCurrentAudio}) {
             theAudio.src = "https://chenzorama.com/overlay/audio/blast-them.mp3";
             theAudio.volume = 1;
         }  else if (audioName == "shutter") {
-            theAudio.src = "https://chenzorama.com/overlay/shutter-sound.mp3";
+            theAudio.src = "https://chenzorama.com/overlay/audio/shutter_sound.mp3";
             theAudio.volume = 1;
         }  
         

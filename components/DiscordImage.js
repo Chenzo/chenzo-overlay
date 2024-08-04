@@ -52,13 +52,9 @@ export default function DiscordImage({pushedImage, setPushedImage, setCurrentAud
     }, [pushedImage]);
 
     const checkDimensions = (e) => {
-        console.log("image loaded");
-        console.log(e.target.width);
-        console.log(e.target.height);
         if (e.target.width > e.target.height) {
             console.log("wide image");
             parentAside.current.classList.add(styles.wide);
-            //e.target.classList.add(styles.wide);
         }
     }
 
