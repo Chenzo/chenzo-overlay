@@ -1,12 +1,13 @@
 
 import styles from "./DiscordImage.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 
 export default function DiscordImage({pushedImage, setPushedImage, setCurrentAudio}) {
 
     const [postid, setPostid] = useState(null);
     const [isTenor, setIsTenor] = useState(false);  
+    const parentAside = useRef(null);
 
     const [caption, setCaption] = useState("Chenzo pushed this image posted by Binobo in #channel!!");
 
@@ -50,6 +51,17 @@ export default function DiscordImage({pushedImage, setPushedImage, setCurrentAud
         } */
     }, [pushedImage]);
 
+    const checkDimensions = (e) => {
+        console.log("image loaded");
+        console.log(e.target.width);
+        console.log(e.target.height);
+        if (e.target.width > e.target.height) {
+            console.log("wide image");
+            parentAside.current.classList.add(styles.wide);
+            //e.target.classList.add(styles.wide);
+        }
+    }
+
     /* useEffect(() => {
         const fakeData = {
             "event": "imagePush",
@@ -77,9 +89,9 @@ export default function DiscordImage({pushedImage, setPushedImage, setCurrentAud
     return (
         <div className={styles.DiscordImage}>
             {pushedImage && 
-                <aside className={`${styles.imageAside} ${isTenor ? styles.tenor : null}`}>
+                <aside ref={parentAside} className={`${styles.imageAside} ${isTenor ? styles.tenor : null}`}>
                     {/* <img src="https://cdn.dribbble.com/users/185738/screenshots/2751203/cowboy.gif" className={styles.theImage} /> */}
-                    {!isTenor && <img src={pushedImage.url} className={styles.pushedImage} />}
+                    {!isTenor && <img src={pushedImage.url} className={styles.pushedImage} onLoad={checkDimensions}/>}
                     {isTenor && <div className="tenor-gif-embed" data-postid={postid} data-share-method="host" data-width="120%"><a href={pushedImage.url}>Loading Image From tenor</a></div> } 
                     <div className={styles.titleCard}>
                         <p className={`${styles.caption} windlass`}>{caption}</p>
