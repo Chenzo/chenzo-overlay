@@ -35,6 +35,12 @@
                 }
             }
 
+            &.bblade {
+                img {
+                    width: 175px;
+                }
+            }
+
         }
     }
 }
@@ -45,11 +51,24 @@
     -o-animation:      rock-boat 5s ease-in-out infinite;
 }
 
+.float.bblade {
+    -webkit-animation:        rock-bboat 5s ease-in-out infinite;
+    -moz-animation:    rock-bboat 5s ease-in-out infinite;
+    -o-animation:      rock-bboat 5s ease-in-out infinite;
+}
+
 
 .sink {
     -webkit-animation:        sink-boat 20s ease-in-out infinite;
     -moz-animation:    sink-boat 20s ease-in-out infinite;
     -o-animation:      sink-boat 20s ease-in-out infinite;
+}
+
+
+.bbsink {
+    -webkit-animation:        sink-bblade 20s ease-in-out infinite;
+    -moz-animation:    sink-bblade 20s ease-in-out infinite;
+    -o-animation:      sink-bblade 20s ease-in-out infinite;
 }
 
 
@@ -89,6 +108,25 @@
         transform:         rotate(5deg) translateY(4px);} 
 }
 
+@keyframes rock-bboat {
+
+   0%   {-webkit-transform: rotate(5deg) translateY(6px);
+          -moz-transform:    rotate(5deg) translateY(6px);
+          -ms-transform:     rotate(5deg) translateY(6px);
+          -o-transform:      rotate(5deg) translateY(6px);
+          transform:         rotate(5deg) translateY(6px);}
+    50%  {-webkit-transform: rotate(-5deg) translateY(-6px);
+          -moz-transform:    rotate(-5deg) translateY(-6px);
+          -ms-transform:     rotate(-5deg) translateY(-6px);
+          -o-transform:      rotate(-5deg) translateY(-6px);
+          transform:         rotate(-5deg) translateY(-6px);}
+    100% {-webkit-transform: rotate(5deg) translateY(6px);
+        -moz-transform:    rotate(5deg) translateY(6px);
+        -ms-transform:     rotate(5deg) translateY(6px);
+        -o-transform:      rotate(5deg) translateY(6px);
+        transform:         rotate(5deg) translateY(6px);} 
+}
+
 
 
 @keyframes sink-boat {
@@ -98,6 +136,16 @@
     85%   {bottom: 0px; transform: rotate(0deg)}
     95%   {bottom: -20px; transform: rotate(25deg)}
   100% {bottom: -100px; transform: rotate(60deg)}
+
+}
+
+@keyframes sink-bblade {
+    0% {bottom: -130px; transform: rotate(-60deg)}
+    5% {bottom: 0px; transform: rotate(0deg)}
+    75%   {bottom: 0px; transform: rotate(0deg)}
+    85%   {bottom: 0px; transform: rotate(0deg)}
+    95%   {bottom: -20px; transform: rotate(25deg)}
+  100% {bottom: -130px; transform: rotate(60deg)}
 
 }
  
