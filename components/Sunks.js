@@ -16,6 +16,10 @@ const Sloop = <div className={`${styles.aship } ${styles.float} ${styles.sloop}`
     <img src="images/sunk/sloop.png" />
 </div>
 
+const BBLade = <div className={`${styles.aship } ${styles.float} ${styles.bblade}`}>
+    <img src="images/sunk/bb.png" />
+</div>
+
 
 
 export default function Sunks({sunkShipArray}) {
@@ -34,6 +38,10 @@ export default function Sunks({sunkShipArray}) {
                 } else if (shipType == "sloop") {
                     return <div key={`ship-=${index}`} className={`${styles.ship_sinker} ${styles.sink}`}>
                         {Sloop}
+                    </div>
+                } else if (shipType == "bblade") {
+                    return <div key={`ship-=${index}`} className={`${styles.ship_sinker} ${styles.bbsink}`}>
+                        {BBLade}
                     </div>
                 }
             })}
